@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local runtime data (never commit databases or secrets)
+data/
+*.db
+*.sqlite3
+.env
+.env.*
+!.env.example
+.timer_start
+
+# Terraform local state (never scan or commit state files)
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+.streamlit/secrets.toml

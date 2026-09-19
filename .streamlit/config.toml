@@ -1,0 +1,6 @@
+[server]
+headless = true
+maxUploadSize = 1          # MB — matches the API's default per-file limit
+
+[browser]
+gatherUsageStats = false

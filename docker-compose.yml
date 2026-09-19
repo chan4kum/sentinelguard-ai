@@ -1,0 +1,39 @@
+# docker compose up --build   →  API :8000 (Swagger at /docs), dashboard :8501
+# Host ports busy? SENTINELGUARD_API_PORT=8020 SENTINELGUARD_DASHBOARD_PORT=8521 docker compose up --build
+services:
+  api:
+    build: .
+    image: sentinelguard-ai:latest
+    ports:
+      - "${SENTINELGUARD_API_PORT:-8000}:8000"
+    environment:
+      SENTINELGUARD_DATABASE_URL: sqlite:////data/sentinelguard.db
+      SENTINELGUARD_LOG_FORMAT: json
+    volumes:
+      - sentinel-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  dashboard:
+    image: sentinelguard-ai:latest
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${SENTINELGUARD_DASHBOARD_PORT:-8501}:8501"
+    environment:
+      SENTINELGUARD_API_BASE_URL: http://api:8000
+    command:
+      - streamlit
+      - run
+      - /usr/local/lib/python3.12/site-packages/sentinelguard/dashboard/app.py
+      - --server.port=8501
+      - --server.address=0.0.0.0
+      - --server.headless=true
+      - --browser.gatherUsageStats=false
+
+volumes:
+  sentinel-data:

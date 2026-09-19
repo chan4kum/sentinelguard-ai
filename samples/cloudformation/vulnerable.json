@@ -1,0 +1,41 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "SentinelGuard AI sample - VULNERABLE CloudFormation (never deployed). Expected: 8 findings -> AWS-S3-001, AWS-EC2-001, AWS-EC2-002, AWS-S3-002, AWS-RDS-001, AWS-S3-003, AWS-ENC-001 x2",
+  "Resources": {
+    "PublicBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "acme-public-assets",
+        "AccessControl": "PublicRead"
+      }
+    },
+    "OpenSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Open admin ports",
+        "SecurityGroupIngress": [
+          { "IpProtocol": "tcp", "FromPort": 22, "ToPort": 22, "CidrIp": "0.0.0.0/0" },
+          { "IpProtocol": "tcp", "FromPort": "3389", "ToPort": "3389", "CidrIp": "0.0.0.0/0" },
+          { "IpProtocol": "tcp", "FromPort": 443, "ToPort": 443, "CidrIp": "0.0.0.0/0" }
+        ]
+      }
+    },
+    "Database": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBInstanceClass": "db.t3.micro",
+        "Engine": "postgres",
+        "PubliclyAccessible": true,
+        "StorageEncrypted": false
+      }
+    },
+    "DataVolume": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "AvailabilityZone": "eu-west-1a",
+        "Size": 20,
+        "Encrypted": false
+      }
+    }
+  }
+}
