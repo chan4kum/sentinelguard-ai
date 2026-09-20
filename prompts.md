@@ -959,3 +959,17 @@ add an MIT license and push it
 `pyproject.toml` (`license = "MIT"`, `license-files`, build requirement raised to `setuptools>=77` for SPDX support),
 and added a License section to the README. Verified the built wheel carries `License-Expression: MIT`, re-ran the
 tests (299 passed) and lint, then committed and pushed.
+
+---
+
+## Prompt 9 — 2026-09-20
+
+~~~text
+* Presentation: docs/presentation.md is Markdown for the "AI-generated deck" item. Convert it with npx @marp-team/marp-cli docs/presentation.md --pptx if you want a .pptx. -- yes
+~~~
+
+**AI response:** Converted the deck with Marp CLI (Node + Chrome) to `docs/presentation.pptx` — 14 slides (title, the 12
+requested topics, closing). Rendered every slide to PNG to check for overflow; fixed slide 6 (table had an empty header
+row and stray cells → now a Critical/High/Medium table) and slide 4 (removed a claim that elapsed time was reported
+correctly every turn; it now references the recorded correction), then regenerated the .pptx. A first regeneration hung
+on a stale headless Chrome and was killed and re-run. Nothing was committed or pushed in this turn.

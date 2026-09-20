@@ -45,7 +45,7 @@ Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + N
 * 26 tasks: *implement → unit-verify → integrate → end-to-end verify*, in dependency order.
 * Parser · Guardrail · API · Persistence · Dashboard · DevOps · Testing · Security Review · Documentation.
 * **No manual code edits**; every fix (e.g. filename truncation bug, a Bandit finding) went back through the owning agent.
-* Every prompt is recorded in `prompts.md`; the timer and elapsed time were reported each turn.
+* Every prompt is recorded in `prompts.md`, including a mid-project correction of the elapsed-time reporting.
 
 ---
 
@@ -60,12 +60,12 @@ Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + N
 
 ## 5. Security guardrails (10 rules)
 
-| | | |
+| 🔴 Critical (30) | 🟠 High (20) | 🟡 Medium (10) |
 |---|---|---|
-| 🔴 **S3 public** | 🔴 **SSH 22 open** | 🔴 **RDP 3389 open** |
-| 🟠 S3 Block Public Access off | 🟠 All-traffic ingress | 🟠 Public database |
-| 🟡 S3 no encryption | 🟡 Unencrypted RDS/EBS | 🟠 Azure public storage |
-| 🔴 Azure NSG SSH/RDP from Internet | | |
+| **S3 bucket public** | S3 Block Public Access off | S3 no default encryption |
+| **SSH 22 open to internet** | All-traffic ingress | Unencrypted RDS / EBS |
+| **RDP 3389 open to internet** | Public database | |
+| **Azure NSG SSH/RDP from Internet** | Azure public storage | |
 
 Each rule ships with ID, provider, detection condition, severity, weight, **evidence** and **remediation**.
 
