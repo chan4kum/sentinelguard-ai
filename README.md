@@ -221,3 +221,7 @@ more rules (IAM wildcards, CloudTrail, KMS rotation, Azure Key Vault/SQL) with C
 CI/PR-comment mode · authentication + per-team projects · Alembic migrations and PostgreSQL · suppressions/exceptions
 with expiry · trend charts across scans · optional (clearly separated) LLM-written remediation *explanations*
 that never influence the score.
+
+## License
+
+[MIT](LICENSE) © 2026 Chandan Kumar

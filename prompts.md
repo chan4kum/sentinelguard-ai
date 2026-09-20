@@ -946,3 +946,16 @@ do a final testing as senior Lead Architect and AI engineer . Is this ready for 
    2026-09-20 08:07 IST because the session was idle overnight. The wall-clock figure is the one that counts against the
    4–6 h goal / 16 h maximum window.
 5. **Audit-log note:** Prompts 4 and 5 were written into this file retroactively during the Prompt 6 turn, not in their own turns.
+
+---
+
+## Prompt 8 — 2026-09-20
+
+~~~text
+add an MIT license and push it
+~~~
+
+**AI response:** Added `LICENSE` (MIT, © 2026 Chandan Kumar — taken from the git author name), declared it in
+`pyproject.toml` (`license = "MIT"`, `license-files`, build requirement raised to `setuptools>=77` for SPDX support),
+and added a License section to the README. Verified the built wheel carries `License-Expression: MIT`, re-ran the
+tests (299 passed) and lint, then committed and pushed.
