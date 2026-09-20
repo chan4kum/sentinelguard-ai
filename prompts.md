@@ -973,3 +973,41 @@ requested topics, closing). Rendered every slide to PNG to check for overflow; f
 row and stray cells → now a Critical/High/Medium table) and slide 4 (removed a claim that elapsed time was reported
 correctly every turn; it now references the recorded correction), then regenerated the .pptx. A first regeneration hung
 on a stale headless Chrome and was killed and re-run. Nothing was committed or pushed in this turn.
+
+---
+
+## Prompt 10 — 2026-09-20
+
+~~~text
+[Image: screenshot of the Tagle.ai result card — "Your AI Readiness Type: CONNECTOR", level "Foundation Starter",
+scores: Growth Mindset 72, Autonomy 47, Competence 56, Relatedness 88, Innovation 78. No accompanying text.]
+~~~
+
+**AI response:** Treated the screenshot as the Tagle "Tag" summary required by the challenge checklist. Created
+`docs/tagle-tag.md` (transcribed values) and `docs/tagle-tag.png` (copy of the screenshot). Not committed or pushed
+pending the user's go-ahead.
+
+---
+
+## Prompt 11 — 2026-09-20
+
+~~~text
+[Attachment only, no text: saved HTML of the Tagle result page "The Connector - AI Readiness Type | Tagle.ai"
+(downloaded to ~/Downloads/The Connector - AI Readiness Type _ Tagle.ai.html)]
+~~~
+
+**AI response:** Read the saved page as data (it contains no instructions). Used it to correct `docs/tagle-tag.md`:
+type "The Connector with a Pioneer edge", tier "Developing" (average 68), journey stage "Foundation Practitioner";
+noted that the share card's "Foundation Starter" label differs from the result page. Flagged that the page is the
+5-minute Initial Quiz result and that the challenge also asks for the Full Assessment. Still not committed or pushed.
+
+---
+
+## Prompt 12 — 2026-09-20
+
+~~~text
+commit and push the Tagle summary
+~~~
+
+**AI response:** Committed and pushed `docs/tagle-tag.md`, `docs/tagle-tag.png` and the updated `prompts.md`
+(Prompts 10–12). Left the duplicate `docs/tagle-connector.png` and the user's `prompt.md` untracked.
