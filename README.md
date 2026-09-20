@@ -14,7 +14,7 @@ services**, and never executes or applies anything.
 | **Stack** | Python 3.11+ · FastAPI · Pydantic v2 · SQLAlchemy 2 · SQLite · Streamlit · Pytest · Docker · GitHub Actions |
 | **Guardrails** | 10 deterministic rules (AWS + Azure) — see [docs/security-baseline.md](docs/security-baseline.md) |
 | **Risk score** | Deterministic, 0–100, fully explained — see [docs/risk-scoring.md](docs/risk-scoring.md) |
-| **Tests** | 299 automated tests (unit 182 · API 49 · integration 13 · security 43 · dashboard 12) |
+| **Tests** | 303 automated tests (unit 182 · API 49 · integration 17 · security 43 · dashboard 12) |
 
 ---
 
@@ -169,7 +169,7 @@ No LLM is involved; the same input always yields the same score. Details: [docs/
 ## Testing
 
 ```bash
-make test          # 299 tests, ~11 s   (or: PYTHONPATH=src pytest)
+make test          # 303 tests, ~15 s   (or: PYTHONPATH=src pytest)
 make lint          # ruff (includes flake8-bandit security rules)
 PYTHONPATH=src pytest tests/security      # adversarial / security-control tests only
 PYTHONPATH=src pytest --cov=sentinelguard --cov-report=term-missing

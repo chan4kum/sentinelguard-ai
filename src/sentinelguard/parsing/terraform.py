@@ -7,6 +7,7 @@ provider, module, or ``local-exec`` is ever evaluated.
 from __future__ import annotations
 
 import re
+import threading
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
@@ -31,6 +32,10 @@ _OPTIONS = SerializationOptions(
 _VAR_REF = re.compile(r"^\$\{\s*var\.([A-Za-z0-9_-]+)\s*\}$")
 _BUCKET_REF = re.compile(r"(?:^|\$\{|[\s(,])(aws_s3_bucket\.[A-Za-z0-9_-]+)")
 _MAX_DEPTH = 40
+# python-hcl2 serialises through a mutable SerializationContext that it creates once as a *default
+# argument*, so concurrent parses corrupt each other (findings silently lost). Parsing is CPU-bound
+# and already serialised by the GIL, so a lock costs nothing and makes results deterministic.
+_HCL_LOCK = threading.Lock()
 _PAB_FLAGS = (
     "block_public_acls",
     "block_public_policy",
@@ -305,7 +310,8 @@ _HANDLERS: dict[str, _Handler] = {
 
 def parse_terraform(text: str, filename: str) -> ParsedFile:
     try:
-        data = hcl2.loads(text, serialization_options=_OPTIONS)
+        with _HCL_LOCK:
+            data = hcl2.loads(text, serialization_options=_OPTIONS)
     except RecursionError:
         raise IaCParseError(f"'{filename}' is nested too deeply to parse.") from None
     except Exception as exc:  # lark raises many exception types; never leak internals

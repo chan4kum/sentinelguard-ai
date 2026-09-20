@@ -153,6 +153,7 @@ def test_concurrent_scans_are_all_persisted(client, samples):
     with ThreadPoolExecutor(max_workers=8) as pool:
         responses = list(pool.map(one, range(8)))
     assert all(r.status_code == 201 for r in responses)
+    assert [r.json()["finding_count"] for r in responses] == [10] * 8  # every scan complete
     ids = {r.json()["scan_id"] for r in responses}
     assert len(ids) == 8
     assert client.get("/api/v1/scans?limit=100").json()["total"] == 8

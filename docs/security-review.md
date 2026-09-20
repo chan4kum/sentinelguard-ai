@@ -7,7 +7,7 @@ Scope: the application as built — API, parsers, persistence, dashboard, contai
 
 | Check | Result |
 |---|---|
-| `pytest` (299 tests incl. 43 adversarial/security tests) | **299 passed**, 0 failed, 0 skipped; 98 % line coverage |
+| `pytest` (303 tests incl. 43 adversarial/security tests and 4 concurrency regression tests) | **303 passed**, 0 failed, 0 skipped; 98 % line coverage |
 | `ruff check` incl. flake8-bandit (`S`) rules | clean |
 | `bandit -r src` | **0 issues** (one Medium `yaml.load` finding was removed — see F-3) |
 | `pip-audit` (installed dependency set) | **No known vulnerabilities found** |
@@ -26,6 +26,7 @@ Scope: the application as built — API, parsers, persistence, dashboard, contai
 | F-6 | AuthN/Z | The API has no authentication, authorisation or rate limiting; any caller who can reach it can create scans and read all results. | High if exposed, N/A locally | **Open / documented** — local/CI tool by design; put behind an authenticated proxy before exposing |
 | F-7 | Detection accuracy | S3 policy detection falls back to a text heuristic when `jsonencode` bodies contain unresolved references (evidence is labelled `[text heuristic]`). Azure NSG priority is not evaluated. | Low (accuracy) | **Open / documented** |
 | F-8 | Supply chain | Dependencies use lower bounds (no lockfile); the Docker base image is a tag, not a digest. | Low | **Open** — recommend a lockfile + digest pinning + scheduled `pip-audit` |
+| F-9 | Concurrency / correctness | **Concurrent Terraform scans could silently lose findings.** `python-hcl2` serialises through a mutable `SerializationContext` created once as a default argument, shared by every thread. Forced with aggressive thread switching, 240 of 240 concurrent scans of a 10-finding file returned only 6–7 findings (a false-negative risk under load). Found because CI failed once (76 stored findings instead of 80); it did not reproduce locally in 30 runs. | Medium (correctness) | **Fixed** — HCL parsing is now serialised with a lock; deterministic regression tests (`tests/integration/test_concurrency.py`) fail without it and pass with it |
 
 No critical or high finding is open for the intended local/CI use. F-6 becomes high the moment the service is exposed to an untrusted network.
 

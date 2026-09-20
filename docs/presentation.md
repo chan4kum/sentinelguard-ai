@@ -113,7 +113,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ## 10. Testing & verification
 
-* **299 automated tests — 299 passed, 0 failed, 0 skipped · 98 % coverage**
+* **303 automated tests — 303 passed, 0 failed, 0 skipped · 98 % coverage**
 * Unit · parser · **every rule with safe + vulnerable fixtures (real engine, no mocks)** · scoring boundaries · API · persistence · integration · dashboard (Streamlit AppTest vs a live server) · concurrency
 * Real execution: live API, real dashboard in a browser, Docker Compose stack with restart persistence
 * `ruff` clean · `bandit` 0 issues · `pip-audit` no known vulnerabilities

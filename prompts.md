@@ -1154,3 +1154,25 @@ the missing "Solution" and "Limitations" slides to `docs/presentation.md` and re
 missing "Ok Push it" entry as Prompt 9b (marked retroactive). Then re-ran the full verification (results in the final
 report of this turn). Note: the README labels "Foundation Starter" as the *level shown on the Tagle result card*
 rather than "Journey Stage", because Tagle's result page uses "Foundation Practitioner" for the journey stage.
+
+---
+
+## Prompt 14 — 2026-09-20
+
+The message arrived truncated (it ends after the first table row); recorded as received.
+
+~~~text
+I checked the repository again directly. It is in much better shape now.
+Submission checklist
+Requirement	Status	What I verified
+Tagle.ai Tag summary	⚠️ Not visible in the README I can currently retrieve	Your Tagle image is ready, but the current public README I can see does not show the Tagle submission section
+~~~
+
+**AI response:** Confirmed the cause: commit `0821412` (with the README "Assessment Submission" section) was committed
+locally but not yet pushed; the remote was at `7eddc60`. Pushed it and verified the section on GitHub. The CI run on
+`0821412` then **failed** on Python 3.12 (`test_concurrent_scans_are_all_persisted`: 76 findings stored instead of 80).
+Investigated instead of re-running: the failure did not reproduce locally, but forcing aggressive thread switching showed
+that concurrent Terraform scans lost findings (every one of 240 returned 6–7 instead of 10) because `python-hcl2` shares a
+mutable serialization context created as a default argument. Added regression tests that fail without the fix
+(`tests/integration/test_concurrency.py`), fixed it with a lock around the HCL parse, strengthened the API concurrency
+test to check per-scan finding counts, and documented the finding as F-9 in `docs/security-review.md`.
