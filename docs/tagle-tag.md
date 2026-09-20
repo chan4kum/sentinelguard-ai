@@ -2,7 +2,7 @@
 
 Phase 1 of the Graduate Vibe Coding Challenge (Mindset & Culture Alignment). Values below are taken from the saved
 Tagle quiz-result page (`tagle.ai/quiz/result`) and cross-checked against the Tagle share card
-([tagle-tag.png](tagle-tag.png)).
+([tagle-connector.png](tagle-connector.png)).
 
 | | |
 |---|---|
@@ -32,4 +32,4 @@ Connectors treat AI transformation as a team sport: they build bridges between p
 left behind. The Pioneer edge adds creative experimentation. Suggested next focus (Tagle): tighten the loop between
 trying things and deciding what to keep.
 
-![Tagle result card](tagle-tag.png)
+![Tagle result card](tagle-connector.png)

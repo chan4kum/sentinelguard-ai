@@ -18,6 +18,35 @@ services**, and never executes or applies anything.
 
 ---
 
+## Assessment Submission
+
+**Project:** SentinelGuard AI — Enterprise Security Guardrail Auditor
+**Repository:** <https://github.com/chan4kum/sentinelguard-ai> (public, MIT)
+
+| Deliverable | Where |
+|---|---|
+| Source code, tests, Docker, CI | this repository (`src/`, `tests/`, `Dockerfile`, `.github/workflows/ci.yml`) |
+| Full prompt audit log | [prompts.md](prompts.md) |
+| AI-generated presentation (Markdown) | [docs/presentation.md](docs/presentation.md) (image-based PowerPoint export: [docs/presentation.pptx](docs/presentation.pptx)) |
+| Tagle.ai "Tag" summary | below, evidence in [docs/tagle-connector.png](docs/tagle-connector.png) and [docs/tagle-tag.md](docs/tagle-tag.md) |
+| Cloud-resource declaration | below |
+
+**Tagle.ai AI Readiness Profile** — Type: **The Connector** · Level shown on the Tagle result card: **Foundation Starter**
+
+| Growth Mindset | Autonomy | Competence | Relatedness | Innovation Readiness |
+|---|---|---|---|---|
+| 72 | 47 | 56 | 88 | 78 |
+
+*(Reported exactly as shown on the result card. Tagle's quiz-result page for the same scores labels the tier "Developing"
+and the journey stage "Foundation Practitioner"; see [docs/tagle-tag.md](docs/tagle-tag.md).)*
+
+**Cloud-resource declaration.** No AWS or Azure infrastructure was provisioned for this assessment. SentinelGuard AI
+performs static analysis of Infrastructure-as-Code configurations and was developed and tested locally using
+representative Terraform and CloudFormation fixtures. No AWS/Azure credentials or billable cloud resources were used;
+therefore, there are no assessment cloud resources remaining to decommission.
+
+---
+
 ## Quick start (local, ~2 minutes)
 
 ```bash

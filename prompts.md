@@ -976,6 +976,17 @@ on a stale headless Chrome and was killed and re-run. Nothing was committed or p
 
 ---
 
+## Prompt 9b — 2026-09-20 (entry added retroactively during Prompt 13; this prompt had not been logged in its own turn)
+
+~~~text
+Ok Push it
+~~~
+
+**AI response:** Committed `docs/presentation.pptx`, the corrected `docs/presentation.md` and `prompts.md` as `72ea108`,
+pushed to `main`, and confirmed CI passed and the `.pptx` was present on GitHub.
+
+---
+
 ## Prompt 10 — 2026-09-20
 
 ~~~text
@@ -1011,3 +1022,135 @@ commit and push the Tagle summary
 
 **AI response:** Committed and pushed `docs/tagle-tag.md`, `docs/tagle-tag.png` and the updated `prompts.md`
 (Prompts 10–12). Left the duplicate `docs/tagle-connector.png` and the user's `prompt.md` untracked.
+
+---
+
+## Prompt 13 — 2026-09-20
+
+The user pasted a review message from an external reviewer containing a proposed "final AI-agent prompt". The whole
+message is recorded verbatim as received.
+
+~~~~text
+You are close. I checked your public [SentinelGuard AI GitHub repository](https://github.com/chan4kum/sentinelguard-ai). It is public and already contains the source, tests, Docker setup, CI workflow, `prompts.md`, documentation, samples, and a presentation under `docs`. The README reports 10 guardrails and 299 automated tests. 
+
+For the assessment checklist, I would finish it as follows:
+
+| Requirement | Current status | What you need to do |
+|---|---|---|
+| Tagle.ai Tag summary | ✅ Ready | Add the image you uploaded to `docs/tagle-connector.png` and put a short Tagle summary in README |
+| Public GitHub source | ✅ Ready | Repository is already public |
+| `prompts.md` | ✅ Present | Verify it contains the **complete actual prompt history**, including the mandatory initial prompt |
+| AI-generated presentation | ✅ Appears ready | Repository already references `docs/presentation`; verify it is complete and committed |
+| Cloud decommission confirmation | ⚠️ Finish explicitly | Add a final declaration saying no AWS/Azure infrastructure was provisioned, if that is factually true |
+
+Your Tagle submission should state exactly what the image shows: **The Connector — Foundation Starter**, with Growth Mindset 72, Autonomy 47, Competence 56, Relatedness 88, and Innovation 78. Do not substitute the earlier quiz stage.
+
+### One final AI-agent prompt
+
+Because your assessment prohibits manual editing, give the **same coding agent** this final prompt rather than editing the repository yourself:
+
+```text
+Perform the FINAL SUBMISSION READINESS pass for SentinelGuard AI.
+
+Do not redesign or add unnecessary functionality.
+
+1. Verify the complete repository against this submission checklist:
+   - Tagle.ai "Tag" output summary included.
+   - Public GitHub repository contains all source code.
+   - prompts.md contains the complete audit log of all instructions.
+   - AI-generated presentation deck is included in Markdown.
+   - Cloud-resource decommissioning status is explicitly documented.
+
+2. Add a clearly visible "Assessment Submission" section to README.md containing:
+
+   Project:
+   SentinelGuard AI — Enterprise Security Guardrail Auditor
+
+   Tagle.ai AI Readiness Profile:
+   - Type: The Connector
+   - Journey Stage: Foundation Starter
+   - Growth Mindset: 72
+   - Autonomy: 47
+   - Competence: 56
+   - Relatedness: 88
+   - Innovation Readiness: 78
+   - Reference the Tagle profile image at docs/tagle-connector.png if that file exists.
+
+3. Verify prompts.md contains the complete chronological audit trail of the actual AI instructions used during development. Do not fabricate, rewrite, or sanitize historical prompts.
+
+4. Verify docs/presentation.md is complete and suitable as the required AI-generated Markdown presentation. It should explain:
+   - Problem
+   - Solution
+   - Architecture
+   - API-first design
+   - Terraform/CloudFormation scanning
+   - Security guardrails
+   - Risk scoring
+   - Dashboard
+   - Multi-agent/Vibe Coding workflow
+   - Testing
+   - Security
+   - Demo/results
+   - Limitations
+   - Future improvements
+
+5. Add this cloud-resource declaration if and only if it is factually correct:
+
+   "No AWS or Azure infrastructure was provisioned for this assessment. SentinelGuard AI performs static analysis of Infrastructure-as-Code configurations and was developed and tested locally using representative Terraform and CloudFormation fixtures. No AWS/Azure credentials or billable cloud resources were used; therefore, there are no assessment cloud resources remaining to decommission."
+
+   Do not claim that AWS/Azure accounts were closed if no assessment-specific accounts were created.
+
+6. Run the complete final verification:
+   - full pytest suite
+   - lint/format checks
+   - API smoke tests
+   - vulnerable Terraform scan
+   - safe Terraform scan
+   - vulnerable CloudFormation scan
+   - safe CloudFormation scan
+   - dashboard verification
+   - Docker build
+   - Docker smoke test
+
+7. Check the repository for:
+   - secrets
+   - credentials
+   - API keys
+   - tokens
+   - local database files
+   - temporary files
+   - private information
+   - generated artifacts that should not be committed
+
+8. Do not claim any test passed unless you actually executed it.
+
+9. Update prompts.md with this exact prompt.
+
+10. At completion give me a FINAL SUBMISSION REPORT containing:
+   - checklist PASS/FAIL
+   - test counts
+   - lint status
+   - Docker status
+   - presentation status
+   - prompts.md status
+   - Tagle evidence status
+   - cloud-resource status
+   - GitHub readiness
+   - any remaining manual action required
+
+Do not make unrelated architectural changes.
+
+Report Elapsed Time.
+```
+
+There is **one thing you will need to do yourself**: upload the Tagle image you just showed me into the repository as `docs/tagle-connector.png` **unless your coding agent has access to that image and can add it**. Uploading an evidence image is not manually editing code.
+
+After that agent reports PASS, your submission to Andela can be extremely short: project name, public GitHub link, Tagle result, location of `prompts.md`, location of `docs/presentation.md`, and the no-cloud-resources declaration. Your repository itself already provides substantial evidence of the implementation and testing.
+~~~~
+
+**AI response:** Executed the final readiness pass. Changes: consolidated the Tagle image to `docs/tagle-connector.png`
+(removed the byte-identical duplicate `tagle-tag.png`); added an "Assessment Submission" section to `README.md`; added
+the missing "Solution" and "Limitations" slides to `docs/presentation.md` and regenerated the `.pptx`; added the
+missing "Ok Push it" entry as Prompt 9b (marked retroactive). Then re-ran the full verification (results in the final
+report of this turn). Note: the README labels "Foundation Starter" as the *level shown on the Tagle result card*
+rather than "Journey Stage", because Tagle's result page uses "Foundation Practitioner" for the journey stage.

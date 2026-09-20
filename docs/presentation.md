@@ -24,7 +24,16 @@ with **explainable risk scoring**, automated guardrail detection and a visual da
 
 ---
 
-## 2. Architecture
+## 2. Solution
+
+* **SentinelGuard AI**: upload Terraform / CloudFormation → structured findings → explainable Risk Score → dashboard, all behind a versioned API.
+* **10 deterministic guardrails** (AWS + Azure), each returning **evidence** and a **remediation**.
+* One **0–100 score** whose every point is traceable to a finding — no LLM in the score.
+* **Static analysis only**: runs locally, needs no cloud account or credentials, never executes uploaded code.
+
+---
+
+## 3. Architecture
 
 ```
 Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + Normalize
@@ -39,7 +48,7 @@ Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + N
 
 ---
 
-## 3. Multi-agent AI development workflow
+## 4. Multi-agent AI development workflow
 
 * Lead Architect plans → 10 logical agents, **one owner per module, one small task at a time**.
 * 26 tasks: *implement → unit-verify → integrate → end-to-end verify*, in dependency order.
@@ -49,7 +58,7 @@ Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + N
 
 ---
 
-## 4. IaC parsing & normalization
+## 5. IaC parsing & normalization
 
 * Terraform via `python-hcl2`; CloudFormation JSON/YAML via a **SafeLoader** subclass (`!Ref`, `!Sub`, `!GetAtt`…).
 * Both map to one **normalized model** (`s3_bucket`, `security_group`, `rds_instance`, `ebs_volume`, `azure_storage`, `azure_nsg`) → each rule written **once**.
@@ -58,7 +67,7 @@ Streamlit ──HTTP──► FastAPI ─► Scan Service ─┬─► Parse + N
 
 ---
 
-## 5. Security guardrails (10 rules)
+## 6. Security guardrails (10 rules)
 
 | 🔴 Critical (30) | 🟠 High (20) | 🟡 Medium (10) |
 |---|---|---|
@@ -71,7 +80,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 6. Explainable Risk Score
+## 7. Explainable Risk Score
 
 `score = min(100, Σ finding weights)` · Critical **30** · High **20** · Medium **10**
 
@@ -82,7 +91,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 7. API-first design
+## 8. API-first design
 
 `POST /api/v1/scans` · `GET /api/v1/scans[/{id}[/findings]]` · `GET /api/v1/rules` · `GET /api/v1/dashboard/summary` · `GET /health` · `GET /ready`
 
@@ -92,7 +101,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 8. Dashboard
+## 9. Dashboard
 
 * Overall Risk Score + classification · scans · total findings · Critical/High/Medium/Low
 * Charts: findings by **severity**, **provider**, **rule**
@@ -102,7 +111,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 9. Testing & verification
+## 10. Testing & verification
 
 * **299 automated tests — 299 passed, 0 failed, 0 skipped · 98 % coverage**
 * Unit · parser · **every rule with safe + vulnerable fixtures (real engine, no mocks)** · scoring boundaries · API · persistence · integration · dashboard (Streamlit AppTest vs a live server) · concurrency
@@ -111,7 +120,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 10. Security considerations
+## 11. Security considerations
 
 * IaC is **data**: no `terraform`, no `eval`/`exec`/`subprocess` (enforced by a static test)
 * YAML SafeLoader; python-object tags rejected · path traversal neutralised · size/type limits
@@ -121,7 +130,7 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 11. Demo / results
+## 12. Demo / results
 
 | Sample | Findings | Score | Level |
 |---|---|---|---|
@@ -135,7 +144,17 @@ Each rule ships with ID, provider, detection condition, severity, weight, **evid
 
 ---
 
-## 12. Future improvements
+## 13. Limitations
+
+* **Static analysis**: values that cannot be resolved (modules, `locals`, `for_each`, CloudFormation parameters) are treated as unknown and **not flagged**.
+* Terraform + CloudFormation only; Azure via Terraform `azurerm_*`. No ARM/Bicep or `.tf.json`.
+* Azure NSG rule **priority is not evaluated**; S3 policy detection falls back to a labelled text heuristic when `jsonencode` holds unresolved references.
+* Account-level controls (S3 account Block Public Access, default EBS encryption) are invisible to a file scan.
+* No authentication or rate limiting: intended for local/CI use behind an authenticated proxy.
+
+---
+
+## 14. Future improvements
 
 * Terraform modules / `locals` / `for_each` and plan-JSON input · ARM/Bicep
 * More rules (IAM wildcards, CloudTrail, KMS, Key Vault) mapped to CIS/NIST
