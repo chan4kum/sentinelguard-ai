@@ -16,7 +16,7 @@ from sentinelguard.dashboard.client import ApiClient, ApiError
 
 TITLE = "SentinelGuard AI"
 SUBTITLE = "Enterprise Security Guardrail Auditor"
-DEFAULT_API_URL = "http://localhost:8000"
+DEFAULT_API_URL = "http://127.0.0.1:8000"
 
 SEVERITIES = ["critical", "high", "medium", "low"]
 SEVERITY_COLORS = {

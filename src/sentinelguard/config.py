@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     max_files_per_scan: int = Field(default=10, ge=1, le=50)
     log_level: str = "INFO"
     log_format: Literal["json", "text"] = "json"
-    api_base_url: str = "http://localhost:8000"
+    api_base_url: str = "http://127.0.0.1:8000"
 
 
 @lru_cache

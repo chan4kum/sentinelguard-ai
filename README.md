@@ -33,12 +33,13 @@ No `make`? Equivalent commands:
 python3 -m venv .venv && source .venv/bin/activate && pip install -e ".[dev]"
 export PYTHONPATH=src            # makes the package importable without relying on the editable install
 uvicorn sentinelguard.api.app:create_app --factory --port 8000
-SENTINELGUARD_API_BASE_URL=http://localhost:8000 streamlit run src/sentinelguard/dashboard/app.py
-python scripts/seed_demo.py http://localhost:8000
+SENTINELGUARD_API_BASE_URL=http://127.0.0.1:8000 streamlit run src/sentinelguard/dashboard/app.py
+python scripts/seed_demo.py http://127.0.0.1:8000
 ```
 
 > **Port 8000 already in use?** Pick another: `--port 8010`, and point the dashboard at it with
-> `SENTINELGUARD_API_BASE_URL=http://127.0.0.1:8010`.
+> `SENTINELGUARD_API_BASE_URL=http://127.0.0.1:8010`. All defaults use `127.0.0.1` (not `localhost`) on purpose: on
+> macOS `localhost` can resolve to IPv6 `::1`, where another service may be listening on the same port.
 
 ### Docker
 
@@ -166,7 +167,7 @@ All via environment variables (see [.env.example](.env.example)); defaults work 
 | `SENTINELGUARD_MAX_UPLOAD_BYTES` | `1048576` | Per-file limit |
 | `SENTINELGUARD_MAX_FILES_PER_SCAN` | `10` | Files per request |
 | `SENTINELGUARD_LOG_LEVEL` / `_LOG_FORMAT` | `INFO` / `json` | Structured logging |
-| `SENTINELGUARD_API_BASE_URL` | `http://localhost:8000` | Where the dashboard finds the API |
+| `SENTINELGUARD_API_BASE_URL` | `http://127.0.0.1:8000` | Where the dashboard finds the API |
 
 ## Repository layout
 

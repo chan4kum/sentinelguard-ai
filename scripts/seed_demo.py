@@ -14,7 +14,7 @@ SAMPLES = Path(__file__).resolve().parent.parent / "samples"
 
 
 def main() -> int:
-    client = ApiClient(sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000")
+    client = ApiClient(sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8000")
     for path in sorted(p for p in SAMPLES.rglob("*") if p.is_file()):
         try:
             scan = client.upload_scan([(path.name, path.read_bytes())])

@@ -41,8 +41,8 @@ jobs:
         run: |
           docker run -d --name sg -p 8000:8000 sentinelguard-ai:ci
           for i in $(seq 1 30); do
-            curl -fsS http://localhost:8000/health && break || sleep 1
+            curl -fsS http://127.0.0.1:8000/health && break || sleep 1
           done
-          curl -fsS http://localhost:8000/ready
-          curl -fsS -F "files=@samples/terraform/vulnerable.tf" http://localhost:8000/api/v1/scans | grep -q '"risk_level":"critical"'
+          curl -fsS http://127.0.0.1:8000/ready
+          curl -fsS -F "files=@samples/terraform/vulnerable.tf" http://127.0.0.1:8000/api/v1/scans | grep -q '"risk_level":"critical"'
           docker rm -f sg

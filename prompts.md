@@ -922,3 +922,27 @@ add prompts.md to the repo too
 **AI response:** Verified `prompts.md` was already tracked and on GitHub. Found the working copy had lost its Prompt 3
 entry (removed by something other than the AI's commands), restored it from the commit, appended Prompts 4–6, and
 committed and pushed the updated audit log.
+
+---
+
+## Prompt 7 — 2026-09-20
+
+~~~text
+do a final testing as senior Lead Architect and AI engineer . Is this ready for submission
+~~~
+
+**AI response:** Independent final verification from a fresh clone of the GitHub repository. Findings and fixes:
+
+1. **Defect — `localhost` vs `127.0.0.1`:** `make seed` failed from a fresh clone because on this machine `localhost`
+   resolves to IPv6 `::1`, where an unrelated container (another project) listens on port 8000, while the API binds
+   IPv4 `127.0.0.1`. Fixed by making every default (Makefile, config, dashboard, seed script, Dockerfile, Compose, CI,
+   `.env.example`, README) use `127.0.0.1`.
+2. **Defect — Streamlit minimum version:** `pyproject.toml` declared `streamlit>=1.40`, but the dashboard uses
+   `width="stretch"` and fails on 1.40–1.50 (verified by bisecting: passes from 1.52). Minimum raised to `>=1.52`.
+3. **Verified OK:** clean clone (84 files, no secrets/junk); `make install`, `make lint`, `make test` (299 passed) on
+   Python 3.12; the full suite also passes on Python 3.14.
+4. **Time-reporting correction:** earlier turns reported elapsed time as roughly 0h 55m–0h 57m, which was an estimate of
+   *active working time*. The real wall-clock timer (started 2026-09-19 21:33:51 IST) read **10h 33m** at
+   2026-09-20 08:07 IST because the session was idle overnight. The wall-clock figure is the one that counts against the
+   4–6 h goal / 16 h maximum window.
+5. **Audit-log note:** Prompts 4 and 5 were written into this file retroactively during the Prompt 6 turn, not in their own turns.
