@@ -887,3 +887,38 @@ Keep the built code and finish the remaining items
 (check + format), `bandit` (0 issues) and `pip-audit` (no known vulnerabilities). Wrote the remaining deliverables:
 `docs/security-baseline.md`, `docs/security-review.md`, `docs/presentation.md` (Marp-compatible Markdown), corrected two
 documentation numbers (security suite = 43 tests; README total = 299), and produced the final report.
+
+---
+
+## Prompt 4 — 2026-09-19
+
+~~~text
+git init and commit it locally
+~~~
+
+**AI response:** Ran `git init -b main`, previewed the file list (no secrets; `.venv`, `data/`, `.timer_start` ignored),
+left the user's own `prompt.md` untracked, and created the local commit `d10b37c` (84 files) with the Claude co-author line.
+
+---
+
+## Prompt 5 — 2026-09-19
+
+~~~text
+push it to GitHub as sentinelguard-ai
+~~~
+
+**AI response:** Confirmed `gh` was authenticated, created the **public** repository `chan4kum/sentinelguard-ai` with the
+requested description, and pushed `main`. Watched the first GitHub Actions run: lint, format check and tests on
+Python 3.11/3.12/3.13, plus the Docker build and container smoke test, all passed.
+
+---
+
+## Prompt 6 — 2026-09-20
+
+~~~text
+add prompts.md to the repo too
+~~~
+
+**AI response:** Verified `prompts.md` was already tracked and on GitHub. Found the working copy had lost its Prompt 3
+entry (removed by something other than the AI's commands), restored it from the commit, appended Prompts 4–6, and
+committed and pushed the updated audit log.
